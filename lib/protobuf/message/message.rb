@@ -1,3 +1,4 @@
+require 'stringio'
 require 'protobuf/descriptor/descriptor'
 require 'protobuf/message/decoder'
 require 'protobuf/message/encoder'
@@ -241,7 +242,7 @@ module Protobuf
     end
 
     def parse_from_string(string)
-      parse_from(StringIO.new(string))
+      parse_from(::StringIO.new(string))
     end
 
     def parse_from_file(filename)
@@ -259,7 +260,7 @@ module Protobuf
     end
 
     def serialize_to_string(string='')
-      io = StringIO.new(string)
+      io = ::StringIO.new(string)
       serialize_to(io)
       result = io.string
       result.force_encoding('ASCII-8BIT') if result.respond_to?(:force_encoding)
